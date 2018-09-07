@@ -1,8 +1,10 @@
 package com.triven.TextMe.controller;
 
 import com.triven.TextMe.domain.Message;
+import com.triven.TextMe.domain.User;
 import com.triven.TextMe.repos.MessageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,10 +37,11 @@ public class MainController {
 
     @PostMapping("/main")
     public String submit(
+            @AuthenticationPrincipal User user,
             @RequestParam String text,
             @RequestParam String tag,
             Map<String, Object> model){
-        Message message = new Message(text, tag);
+        Message message = new Message(text, tag, user);
         messageRepo.save(message);
 
         Iterable<Message> messages = messageRepo.findAll();
