@@ -1,4 +1,4 @@
-package com.triven.TextMe;
+package com.triven.TextMe.controller;
 
 import com.triven.TextMe.domain.Message;
 import com.triven.TextMe.repos.MessageRepo;
@@ -13,21 +13,19 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-public class GreetingController {
+public class MainController {
 
     @Autowired
     private MessageRepo messageRepo;
 
-    @GetMapping("/greeting")
+    @GetMapping("/")
     public String greeting(
-            @RequestParam(name = "name", required = false, defaultValue = "World") String name,
             Map<String, Object> model
     ){
-        model.put("name", name);
         return "greeting";
     }
 
-    @GetMapping
+    @GetMapping("/main")
     public String main(Map<String, Object> model){
         Iterable<Message> messages = messageRepo.findAll();
 
@@ -35,7 +33,7 @@ public class GreetingController {
         return "main";
     }
 
-    @PostMapping
+    @PostMapping("/main")
     public String submit(
             @RequestParam String text,
             @RequestParam String tag,
@@ -65,4 +63,5 @@ public class GreetingController {
         return "main";
 
     }
+
 }
