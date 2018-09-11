@@ -26,6 +26,6 @@
             </li>
         </ul>
         <div class="navbar-text mr-3">${name}</div>
-        <@l.logout/>
+        <@l.logout  />
     </div>
 </nav>

@@ -14,7 +14,7 @@
         </a>
 
         <div class="form-group mt-3">
-            <form method="post" class="collapse" id="collapseExample">
+            <form method="post" class="collapse" id="collapseExample" enctype="multipart/form-data">
                 <div class="form-group">
                     <input class="form-control" type="text" name="text" placeholder="enter message">
                 </div>
