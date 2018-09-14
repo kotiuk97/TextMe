@@ -1,6 +1,9 @@
 package com.triven.TextMe.domain;
 
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Message {
@@ -9,7 +12,11 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotBlank(message = "Please, enter a message")
+    @Length(max = 2048, message = "Message is too long")
     private String text;
+
+    @Length(max = 255, message = "tag is too long")
     private String tag;
     private String filename;
 

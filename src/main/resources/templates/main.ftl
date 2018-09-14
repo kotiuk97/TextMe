@@ -14,12 +14,24 @@
         </a>
 
         <div class="form-group mt-3">
-            <form method="post" class="collapse" id="collapseExample" enctype="multipart/form-data">
+            <form method="post" class="collapse <#if message??>Show</#if>" id="collapseExample" enctype="multipart/form-data">
                 <div class="form-group">
-                    <input class="form-control" type="text" name="text" placeholder="enter message">
+                    <input class="form-control ${(textError??)?string('is-invalid','')}"
+                           value="<#if message??>${message.text}</#if>" type="text" name="text" placeholder="enter message">
+                    <#if textError??>
+                        <div class="invalid-feedback">
+                            ${textError}
+                        </div>
+                    </#if>
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" name="tag" placeholder="enter tag">
+                    <input class="form-control" type="text" name="tag"
+                           value="<#if message??>${message.tag}</#if>"placeholder="enter tag">
+                    <#if textError??>
+                        <div class="invalid-feedback">
+                            ${tagError}
+                        </div>
+                    </#if>
                 </div>
                 <div class="form-group">
                     <div class="custom-file">
