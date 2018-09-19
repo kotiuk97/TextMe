@@ -75,4 +75,39 @@ public class UserController {
         userService.updateProfile(user, password, email);
         return "redirect:/user/profile";
     }
+
+    @GetMapping("/subscribe/{user}")
+    public String subscribe(
+            @AuthenticationPrincipal User curentUser,
+            @PathVariable User user
+    ){
+        userService.subcribe(curentUser, user);
+        return "redirect:/user-messages/" + user.getId();
+    }
+
+    @GetMapping("/unsubscribe/{user}")
+    public String unsubscribe(
+            @AuthenticationPrincipal User curentUser,
+            @PathVariable User user
+    ){
+        userService.unsubcribe(curentUser, user);
+        return "redirect:/user-messages/" + user.getId();
+    }
+
+    @GetMapping("{type}/{user}/list")
+    public String userList(
+            @PathVariable User user,
+            @PathVariable String type,
+            Model model){
+        model.addAttribute("userChanel", user);
+        model.addAttribute("type", type);
+        if ("subscriptions".equals(type)){
+            model.addAttribute("users", user.getSubscriptions());
+        }else{
+            model.addAttribute("users", user.getSubscribers());
+        }
+
+
+        return "subscriptions";
+    }
 }

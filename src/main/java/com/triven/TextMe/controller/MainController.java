@@ -98,14 +98,18 @@ public class MainController {
 
     @GetMapping("/user-messages/{user}")
     public String userMessages(
-            @AuthenticationPrincipal User curentUser,
+            @AuthenticationPrincipal User currentUser,
             @PathVariable User user,
             @RequestParam(required = false) Message message,
             Model model){
         Set<Message> messages = user.getMessages();
+        model.addAttribute("subscriptionsCount", user.getSubscriptions().size());
+        model.addAttribute("subscribersCount", user.getSubscribers().size());
+        model.addAttribute("isSubscriber", user.getSubscribers().contains(currentUser));
+        model.addAttribute("userChannel", user);
         model.addAttribute("messages", messages);
         model.addAttribute("message", message);
-        model.addAttribute("isCurrentUser", curentUser.equals(user));
+        model.addAttribute("isCurrentUser", currentUser.equals(user));
 
         return "userMessages";
     }
